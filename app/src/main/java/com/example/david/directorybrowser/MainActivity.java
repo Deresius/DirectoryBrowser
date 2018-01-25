@@ -32,14 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 "Android Example",
                 "List View Source Code",
                 "List View Array Adapter",
-                "Android Example List View",
-                "Adapter implementation again",
-                "Simple List View In Android again",
-                "Create List View Android again",
-                "Android Example again",
-                "List View Source Code again",
-                "List View Array Adapter again",
-                "Android Example List View again"
+                "Android Example List View"
         };
 
         // Define a new Adapter
