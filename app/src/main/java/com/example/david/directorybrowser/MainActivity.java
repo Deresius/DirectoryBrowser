@@ -26,25 +26,16 @@ public class MainActivity extends AppCompatActivity {
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             if (shouldShowRequestPermissionRationale(
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Explain to the user why we need to read the contacts
             }
 
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     1);
-
-            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-            // app-defined int constant that should be quite unique
-
-            return;
         }
 
-        // Get ListView object from xml
         listView = (ListView) findViewById(R.id.DirectoryListView);
 
-        // Defined Array values to show in ListView
         String[] values = new String[] { "Android List View",
                 "Adapter implementation",
                 "Simple List View In Android",
@@ -62,47 +53,29 @@ public class MainActivity extends AppCompatActivity {
                 "Android Example List View again"
         };
 
-        // Define a new Adapter
-        // First parameter - Context
-        // Second parameter - Layout for the row
-        // Third parameter - ID of the TextView to which the data is written
-        // Forth - the Array of data
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-
-        // Assign adapter to ListView
         listView.setAdapter(adapter);
 
-        // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                // ListView Clicked item index
                 int itemPosition     = position;
 
-                // ListView Clicked item value
                 String  itemValue    = (String) listView.getItemAtPosition(position);
 
-                // Show Alert
                 Toast.makeText(getApplicationContext(),
                         "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
                         .show();
-
             }
-
         });
     }
 
     private void TestUpload() {
         int i = 1+3;
     }
-
-
-
-
 }
