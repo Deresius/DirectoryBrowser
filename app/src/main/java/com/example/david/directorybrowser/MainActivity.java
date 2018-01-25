@@ -8,16 +8,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
 
     ListView listView ;
     ArrayAdapter<File> adapter;
-    File[] values;
+    File[] currentFile;
+    List<File> directories;
+    List<File> files;
 
 
     @Override
@@ -40,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.DirectoryListView);
 
-        values = new File("/sdcard/").listFiles() ;
+        currentFile = new File("/sdcard/").listFiles() ;
 
-       updateView();
+        sortCurrentFile();
+        updateView();
 
 
 
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 int itemPosition     = position;
 
                 File location = (File)listView.getItemAtPosition(position);
-                values = new File(location.getAbsolutePath()).listFiles();
+                currentFile = new File(location.getAbsolutePath()).listFiles();
 
                 updateView();
 
@@ -67,9 +71,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void sortCurrentFile() {
+       // directories.clear();
+        //files.clear();
+        //for (File curr : currentFile) {
+          //  if (curr.isDirectory()) {
+            //    directories.add(curr);
+            //} else {
+              //  files.add(curr);
+            //}
+        //}
+        //Collections.sort(files);
+        //Collections.sort(directories);
+        //directories.addAll(files);
+        //directories.toArray(currentFile);
+    }
+
     private void updateView() {
         adapter = new ArrayAdapter<File>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                android.R.layout.simple_list_item_1, android.R.id.text1, currentFile);
         listView.setAdapter(adapter);
     }
 
