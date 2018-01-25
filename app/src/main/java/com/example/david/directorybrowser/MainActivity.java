@@ -1,5 +1,7 @@
 package com.example.david.directorybrowser;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +22,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Explain to the user why we need to read the contacts
+            }
+
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+
+            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+            // app-defined int constant that should be quite unique
+
+            return;
+        }
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.DirectoryListView);
