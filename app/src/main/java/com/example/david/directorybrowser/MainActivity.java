@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -36,24 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.DirectoryListView);
 
-        String[] values = new String[] { "Android List View",
-                "Adapter implementation",
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter",
-                "Android Example List View",
-                "Adapter implementation again",
-                "Simple List View In Android again",
-                "Create List View Android again",
-                "Android Example again",
-                "List View Source Code again",
-                "List View Array Adapter again",
-                "Android Example List View again"
-        };
+        File[] values = new File("/sdcard/").listFiles() ;
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<File> adapter = new ArrayAdapter<File>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
         listView.setAdapter(adapter);
