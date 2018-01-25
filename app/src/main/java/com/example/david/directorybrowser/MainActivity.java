@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     ListView listView ;
+    ArrayAdapter<File> adapter;
+    File[] values;
 
 
     @Override
@@ -38,12 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.DirectoryListView);
 
-        File[] values = new File("/sdcard/").listFiles() ;
+        values = new File("/sdcard/").listFiles() ;
 
-        ArrayAdapter<File> adapter = new ArrayAdapter<File>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+       updateView();
 
-        listView.setAdapter(adapter);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -51,15 +52,25 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+
                 int itemPosition     = position;
 
-                String  itemValue    = (String) listView.getItemAtPosition(position);
+                File location = (File)listView.getItemAtPosition(position);
+                values = new File(location.getAbsolutePath()).listFiles();
 
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
+                updateView();
+
+               // Toast.makeText(getApplicationContext(),
+                 //       "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
+                   //     .show();
             }
         });
+    }
+
+    private void updateView() {
+        adapter = new ArrayAdapter<File>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        listView.setAdapter(adapter);
     }
 
     private void TestUpload() {
