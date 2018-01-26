@@ -2,6 +2,7 @@ package com.example.david.directorybrowser;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     DirectoryEntry location;
     String currentLocation;
 
+    private static String start = Environment.getExternalStorageDirectory().getPath();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +40,17 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         requestPermission();
+
+
         location = null;
 
-        listView = (ListView) findViewById(R.id.DirectoryListView);
+        listView = findViewById(R.id.DirectoryListView);
 
-        currentLocation = "/sdcard/";
-
-        this.setTitle(new File(currentLocation).getName());
+        currentLocation = start;
+        this.setTitle(new File(currentLocation).getPath());
         currentFile = new File(currentLocation).listFiles();
         builder = new DirectoryBuilder();
         entries = builder.buildDirectory(currentFile);
-
         updateView();
 
 
@@ -69,11 +73,46 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void requestPermission() {
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1);
+            } else {
+
+            }
+
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                } else {
+
+                }
+                return;
+            }
+
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
 
-            if (currentLocation.equals("/sdcard/" ) || currentLocation.equals("/sdcard")) {
+            if (currentLocation.equals(start)) {
                 onBackPressed();
 
             }else {
@@ -97,18 +136,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void requestPermission() {
-        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            if (shouldShowRequestPermissionRationale(
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            }
-
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    1);
-        }
-    }
 
     private void updateView() {
         DirectoryArrayAdapter mine = new DirectoryArrayAdapter(this, R.layout.list_view_files, entries);
