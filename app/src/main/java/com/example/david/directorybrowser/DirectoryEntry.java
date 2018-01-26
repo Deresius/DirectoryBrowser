@@ -1,5 +1,7 @@
 package com.example.david.directorybrowser;
 
+import android.support.annotation.NonNull;
+
 /**
  *  Class DirectoryEntry defines the parameters of a directory tree object.
  *
@@ -19,7 +21,7 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
      * @param p - the path of the file
      * @param d - where the entry is a directory
      */
-    public DirectoryEntry(String n, String p, boolean d)
+    DirectoryEntry(String n, String p, boolean d)
     {
         name = n;
         path = p;
@@ -37,14 +39,14 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
     {
         return name;
     }
-    public String getPath()
+    String getPath()
     {
         return path;
     }
-    public boolean isDirectory() {
+    boolean isDirectory() {
         return isDirectory;
     }
-    public int compareTo(DirectoryEntry o) {
+    public int compareTo(@NonNull DirectoryEntry o) {
         if(this.name != null)
             return this.name.toLowerCase().compareTo(o.getName().toLowerCase());
         else

@@ -10,10 +10,10 @@ import java.util.Collections;
  * Created by David Spurlock and James Looney.
  */
 
-public class DirectoryBuilder {
+class DirectoryBuilder {
 
-    ArrayList<DirectoryEntry> directories;
-    ArrayList<DirectoryEntry> files;
+    private ArrayList<DirectoryEntry> directories;
+    private ArrayList<DirectoryEntry> files;
 
     /**
      *  buildDirectory builds a sorted directoryEntry array list from a list of files.
@@ -21,7 +21,7 @@ public class DirectoryBuilder {
      * @param allFiles the provided list of files
      * @return the sorted, and labeled directory list.
      */
-    public ArrayList<DirectoryEntry> buildDirectory(File[] allFiles) {
+    ArrayList<DirectoryEntry> buildDirectory(File[] allFiles) {
         directories = new ArrayList<>();
         files = new ArrayList<>();
 

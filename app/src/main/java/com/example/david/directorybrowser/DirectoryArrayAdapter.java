@@ -1,6 +1,8 @@
 package com.example.david.directorybrowser;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +20,9 @@ import java.util.ArrayList;
 
 public class DirectoryArrayAdapter extends ArrayAdapter<DirectoryEntry>{
 
-    ArrayList<DirectoryEntry> directoryEntries = new ArrayList<>();
+    private ArrayList<DirectoryEntry> directoryEntries = new ArrayList<>();
 
-    public DirectoryArrayAdapter(Context context, int textViewResourceId, ArrayList<DirectoryEntry> objects) {
+    DirectoryArrayAdapter(Context context, int textViewResourceId, ArrayList<DirectoryEntry> objects) {
         super(context, textViewResourceId, objects);
         directoryEntries = objects;
     }
@@ -30,14 +32,16 @@ public class DirectoryArrayAdapter extends ArrayAdapter<DirectoryEntry>{
         return super.getCount();
     }
 
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view = convertView;
+        View view;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.list_view_files, null);
-        TextView textView = (TextView) view.findViewById(R.id.textView);
-        ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+        TextView textView = view.findViewById(R.id.textView);
+        ImageView imageView = view.findViewById(R.id.imageView);
         textView.setText(directoryEntries.get(position).getName());
         imageView.setImageResource(directoryEntries.get(position).getIcon());
         return view;
