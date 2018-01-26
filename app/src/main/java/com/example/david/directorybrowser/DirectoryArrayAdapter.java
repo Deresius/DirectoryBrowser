@@ -11,7 +11,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by David on 1/25/2018.
+ * Custom ArrayAdapter class for directoryEntries to be shown in the main activity list view.
+ *
+ * Created by David Spurlock and James Looney.
  */
 
 public class DirectoryArrayAdapter extends ArrayAdapter<DirectoryEntry>{

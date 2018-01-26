@@ -1,7 +1,9 @@
 package com.example.david.directorybrowser;
 
 /**
- * Created by David on 1/25/2018.
+ *  Class DirectoryEntry defines the parameters of a directory tree object.
+ *
+ * Created by David Spurlock and James Looney.
  */
 
 public class DirectoryEntry implements Comparable<DirectoryEntry>{
@@ -10,6 +12,13 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
     private boolean isDirectory;
     private int icon;
 
+    /**
+     *  Constructs a new entry for the directory tree.
+     *
+     * @param n - the name of the file
+     * @param p - the path of the file
+     * @param d - where the entry is a directory
+     */
     public DirectoryEntry(String n, String p, boolean d)
     {
         name = n;

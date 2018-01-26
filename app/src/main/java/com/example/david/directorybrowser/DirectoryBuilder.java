@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by David on 1/25/2018.
+ *  Directory Builder class is responsible for the method to build a directory from a list of files.
+ *
+ * Created by David Spurlock and James Looney.
  */
 
 public class DirectoryBuilder {
@@ -13,11 +15,18 @@ public class DirectoryBuilder {
     ArrayList<DirectoryEntry> directories;
     ArrayList<DirectoryEntry> files;
 
+    /**
+     *  buildDirectory builds a sorted directoryEntry array list from a list of files.
+     *
+     * @param allFiles the provided list of files
+     * @return the sorted, and labeled directory list.
+     */
     public ArrayList<DirectoryEntry> buildDirectory(File[] allFiles) {
         directories = new ArrayList<>();
         files = new ArrayList<>();
 
         for (File curr : allFiles) {
+
 
             DirectoryEntry newEntry = new DirectoryEntry(curr.getName(), curr.getAbsolutePath(), curr.isDirectory());
             if (newEntry.getPath().toLowerCase().endsWith("mp3")) {

@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ *  The MainActivity is a file browser, with simple sorting and navigation.
+ *
+ *  Created by David Spurlock and James Looney.
+ */
 public class MainActivity extends AppCompatActivity {
 
 
