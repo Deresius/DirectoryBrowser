@@ -2,9 +2,9 @@ package com.example.david.directorybrowser;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     DirectoryEntry location;
     String currentLocation;
 
-    private static String start = Environment.getExternalStorageDirectory().getPath();
+    private static String start = "/";
 
 
 
