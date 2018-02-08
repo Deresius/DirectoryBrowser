@@ -2,20 +2,33 @@ package com.example.david.directorybrowser;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.File;
-
+import java.util.ArrayList;
+/**
+ *  The MainActivity is a file browser, with simple sorting and navigation.
+ *
+ *  Created by David Spurlock and James Looney.
+ */
 public class MainActivity extends AppCompatActivity {
 
 
-    ListView listView ;
+    ListView listView;
+    File[] currentFile;
+    ArrayList<DirectoryEntry> entries;
+    DirectoryBuilder builder;
+    DirectoryEntry location;
+    String currentLocation;
+
+    private static String start = Environment.getExternalStorageDirectory().getPath();
+
 
 
     @Override
@@ -24,26 +37,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
-        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+        requestPermission();
 
-            if (shouldShowRequestPermissionRationale(
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            }
 
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    1);
-        }
 
-        listView = (ListView) findViewById(R.id.DirectoryListView);
+    }
 
-        File[] values = new File("/sdcard/").listFiles() ;
+    private void setupPage() {
+        location = null;
 
-        ArrayAdapter<File> adapter = new ArrayAdapter<File>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        listView = findViewById(R.id.DirectoryListView);
 
-        listView.setAdapter(adapter);
+        currentLocation = start;
+        this.setTitle(new File(currentLocation).getPath());
+        currentFile = new File(currentLocation).listFiles();
+        builder = new DirectoryBuilder();
+        entries = builder.buildDirectory(currentFile);
+        updateView();
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -51,18 +64,91 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                int itemPosition     = position;
+                location = (DirectoryEntry) listView.getItemAtPosition(position);
+                currentFile = new File(location.getPath()).listFiles();
 
-                String  itemValue    = (String) listView.getItemAtPosition(position);
+                currentLocation = location.getPath();
+                entries = builder.buildDirectory(currentFile);
 
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
+                updateView();
+                updateTitle();
+
             }
         });
     }
 
-    private void TestUpload() {
-        int i = 1+3;
+    private void requestPermission() {
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1);
+            } else {
+
+            }
+
+
+        } else {
+            setupPage();
+        }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    setupPage();
+                } else {
+
+                }
+                return;
+            }
+
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+
+            if (currentLocation.equals(start)) {
+                onBackPressed();
+
+            }else {
+                String lastDirectory = currentLocation;
+
+                int index = lastDirectory.lastIndexOf("/");
+                if (index > 0) {
+                    lastDirectory = lastDirectory.substring(0, index);
+                }
+
+                currentFile = new File(lastDirectory).listFiles();
+                currentLocation = lastDirectory;
+                entries = builder.buildDirectory(currentFile);
+
+                updateView();
+                updateTitle();
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+
+
+    private void updateView() {
+        DirectoryArrayAdapter mine = new DirectoryArrayAdapter(this, R.layout.list_view_files, entries);
+        listView.setAdapter(mine);
+    }
+    private void updateTitle() {
+        this.setTitle(currentLocation);
+    }
+
 }
