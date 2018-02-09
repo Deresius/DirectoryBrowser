@@ -1,11 +1,15 @@
 package com.example.david.directorybrowser;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     DirectoryBuilder builder;
     DirectoryEntry location;
     String currentLocation;
+
 
     private static String start = "/";
 
@@ -64,13 +69,21 @@ public class MainActivity extends AppCompatActivity {
                                     int position, long id) {
 
                 location = (DirectoryEntry) listView.getItemAtPosition(position);
-                currentFile = new File(location.getPath()).listFiles();
 
-                currentLocation = location.getPath();
-                entries = builder.buildDirectory(currentFile);
+                if(!location.isDirectory()) {
+                    launchImplicitIntent(location.getPath());
+                } else {
+                    currentFile = new File(location.getPath()).listFiles();
 
-                updateView();
-                updateTitle();
+                    currentLocation = location.getPath();
+                    //bool somethign = location.getPath()
+                    entries = builder.buildDirectory(currentFile);
+
+                    updateView();
+                    updateTitle();
+                }
+
+
 
             }
         });
@@ -105,6 +118,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void launchImplicitIntent(String path) {
+        String ext2 = path.substring(path.lastIndexOf(".") + 1);
+
+        Uri uri = Uri.fromFile(new File(path));
+        String extension = MimeTypeMap.getFileExtensionFromUrl(path);
+
+        String mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext2);
+        if (mime == null) {
+            mime = "*/*";
+        }
+        Log.v("Ext2", ext2);
+        Log.v("extension", "MimeType Extension: " +extension);
+        Log.v("mimetype", mime);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, mime);
+        Intent chooser = Intent.createChooser(intent, "choose app");
+        if(chooser.resolveActivity(getPackageManager()) != null) {
+            startActivity(chooser);
+        }else{
+            Log.v("null resolveActivity", mime+"\n"+uri);
+        }
+
+
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -115,12 +155,12 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 String lastDirectory = currentLocation;
 
-                int index = lastDirectory.lastIndexOf("/");
-                if (index > 0) {
-                    lastDirectory = lastDirectory.substring(0, index);
-                }
-
-                currentFile = new File(lastDirectory).listFiles();
+                //int index = lastDirectory.lastIndexOf("/");
+                //if (index > 0) {
+                  //  lastDirectory = lastDirectory.substring(0, index);
+                //}
+                String parentName = new File(lastDirectory).getParentFile().getName();
+                currentFile = new File(parentName).listFiles();
                 currentLocation = lastDirectory;
                 entries = builder.buildDirectory(currentFile);
 
