@@ -1,5 +1,7 @@
 package com.example.david.directorybrowser;
 
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
 import java.io.File;
@@ -29,6 +31,7 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
         path = p;
         isDirectory = d;
         icon = R.drawable.gen;
+
 
     }
     public void setIcon(int icon) {

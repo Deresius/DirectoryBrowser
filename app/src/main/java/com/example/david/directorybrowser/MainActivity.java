@@ -73,14 +73,19 @@ public class MainActivity extends AppCompatActivity {
                 if(!location.isDirectory()) {
                     launchImplicitIntent(location.getPath());
                 } else {
-                    currentFile = new File(location.getPath()).listFiles();
+                    if(!location.getPath().isEmpty()){
+                        currentFile = new File(location.getPath()).listFiles();
 
-                    currentLocation = location.getPath();
-                    //bool somethign = location.getPath()
-                    entries = builder.buildDirectory(currentFile);
+                        currentLocation = location.getPath();
+                        //bool somethign = location.getPath()
+                        entries = builder.buildDirectory(currentFile);
 
-                    updateView();
-                    updateTitle();
+                        updateView();
+                        updateTitle();
+                    }
+
+
+
                 }
 
 
