@@ -159,9 +159,9 @@ public class MainActivity extends AppCompatActivity {
                 //if (index > 0) {
                   //  lastDirectory = lastDirectory.substring(0, index);
                 //}
-                String parentName = new File(lastDirectory).getParentFile().getName();
+                String parentName = new File(lastDirectory).getParentFile().getPath();
                 currentFile = new File(parentName).listFiles();
-                currentLocation = lastDirectory;
+                currentLocation = new File (parentName).getPath();
                 entries = builder.buildDirectory(currentFile);
 
                 updateView();
