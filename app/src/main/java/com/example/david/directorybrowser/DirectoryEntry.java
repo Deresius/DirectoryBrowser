@@ -1,5 +1,6 @@
 package com.example.david.directorybrowser;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
 import java.io.File;
@@ -15,6 +16,7 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
     private String path;
     private boolean isDirectory;
     private int icon;
+    private Bitmap bm;
 
     /**
      *  Constructs a new entry for the directory tree.
@@ -49,6 +51,14 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
         return isDirectory;
     }
 
+    public Bitmap getThumb() {
+        return bm;
+    }
+
+    public void setThumb(Bitmap map) {
+         this.bm = map;
+    }
+
     public String getSize() {
         String returnValue = "";
         if (isDirectory == true) {
@@ -60,7 +70,7 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
             } catch (Exception e) {
 
             }
-            return "empty";
+            //return "empty";
         }
         return returnValue;
     }
