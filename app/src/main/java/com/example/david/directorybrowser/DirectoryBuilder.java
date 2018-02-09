@@ -27,41 +27,37 @@ class DirectoryBuilder {
     ArrayList<DirectoryEntry> buildDirectory(File[] allFiles) {
         directories = new ArrayList<>();
         files = new ArrayList<>();
-        try{
-            for (File curr : allFiles) {
+
+        for (File curr : allFiles) {
 
 
-                DirectoryEntry newEntry = new DirectoryEntry(curr.getName(), curr.getAbsolutePath(), curr.isDirectory());
-                if (newEntry.getPath().toLowerCase().endsWith("mp3")) {
-                    newEntry.setIcon(R.drawable.mp3);
-                } else if (newEntry.getPath().toLowerCase().endsWith("txt")) {
-                    newEntry.setIcon(R.drawable.txt);
+            DirectoryEntry newEntry = new DirectoryEntry(curr.getName(), curr.getAbsolutePath(), curr.isDirectory());
+            if (newEntry.getPath().toLowerCase().endsWith("mp3")) {
+                newEntry.setIcon(R.drawable.mp3);
+            } else if (newEntry.getPath().toLowerCase().endsWith("txt")) {
+                newEntry.setIcon(R.drawable.txt);
 
-                }else if (newEntry.getPath().toLowerCase().endsWith("jpg")){
-                    //newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
-                    //newEntry.setIcon(newEntry.getThumb().getGenerationId());
-                }else if (newEntry.getPath().toLowerCase().endsWith("jpeg")){
-                    //newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
-                    //newEntry.setIcon(newEntry.getThumb().getGenerationId());
-                } else if (newEntry.isDirectory()) {
-                    newEntry.setIcon(R.drawable.folder_icon);
-                } else {
-                    newEntry.setIcon(R.drawable.gen);
-                }
-
-                if (newEntry.isDirectory()) {
-                    directories.add(newEntry);
-                } else {
-                    files.add(newEntry);
-                }
+            }else if (newEntry.getPath().toLowerCase().endsWith("jpg")){
+                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
+                newEntry.setIcon(newEntry.getThumb().getGenerationId());
+            }else if (newEntry.getPath().toLowerCase().endsWith("jpeg")){
+                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
+                newEntry.setIcon(newEntry.getThumb().getGenerationId());
+            } else if (newEntry.isDirectory()) {
+                newEntry.setIcon(R.drawable.folder_icon);
+            } else {
+                newEntry.setIcon(R.drawable.gen);
             }
-            Collections.sort(files);
-            Collections.sort(directories);
-            directories.addAll(files);
-            return directories;
-        }catch (NullPointerException npe){
-            return new ArrayList<DirectoryEntry>();
-        }
 
+            if (newEntry.isDirectory()) {
+                directories.add(newEntry);
+            } else {
+                files.add(newEntry);
+            }
+        }
+        Collections.sort(files);
+        Collections.sort(directories);
+        directories.addAll(files);
+        return directories;
     }
 }

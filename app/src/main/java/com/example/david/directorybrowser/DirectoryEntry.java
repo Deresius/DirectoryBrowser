@@ -54,8 +54,8 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
 
     public String getSize() {
         String returnValue = "";
+        File aFile = new File(this.getPath());
         if (isDirectory == true) {
-            File aFile = new File(this.getPath());
             try {
                 if (aFile.listFiles().length > 0) {
                     return String.valueOf(aFile.listFiles().length);
@@ -64,6 +64,10 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
 
             }
             return "empty";
+        } else if (aFile.isFile()) {
+            returnValue = String.valueOf(aFile.length()) + "bytes";
+        } else {
+            returnValue = "";
         }
         return returnValue;
     }
