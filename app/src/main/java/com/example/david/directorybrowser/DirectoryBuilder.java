@@ -1,5 +1,8 @@
 package com.example.david.directorybrowser;
 
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +36,13 @@ class DirectoryBuilder {
                 newEntry.setIcon(R.drawable.mp3);
             } else if (newEntry.getPath().toLowerCase().endsWith("txt")) {
                 newEntry.setIcon(R.drawable.txt);
+
+            }else if (newEntry.getPath().toLowerCase().endsWith("jpg")){
+                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
+                newEntry.setIcon(newEntry.getThumb().getGenerationId());
+            }else if (newEntry.getPath().toLowerCase().endsWith("jpeg")){
+                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
+                newEntry.setIcon(newEntry.getThumb().getGenerationId());
             } else if (newEntry.isDirectory()) {
                 newEntry.setIcon(R.drawable.folder_icon);
             } else {
