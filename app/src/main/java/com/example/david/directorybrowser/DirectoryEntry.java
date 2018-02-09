@@ -1,6 +1,9 @@
 package com.example.david.directorybrowser;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+
+import java.io.File;
 
 /**
  *  Class DirectoryEntry defines the parameters of a directory tree object.
@@ -46,6 +49,19 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
     boolean isDirectory() {
         return isDirectory;
     }
+
+    public int getSize() {
+        if (isDirectory == true) {
+            int size = 0;
+            File aFile = new File(this.getPath());
+            for (File curr: aFile.listFiles()) {
+                size++;
+            }
+            return size;
+        }
+        return 0;
+    }
+
     public int compareTo(@NonNull DirectoryEntry o) {
         if(this.name != null)
             return this.name.toLowerCase().compareTo(o.getName().toLowerCase());

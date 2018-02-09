@@ -39,8 +39,10 @@ public class DirectoryArrayAdapter extends ArrayAdapter<DirectoryEntry>{
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.list_view_files, null);
         TextView textView = view.findViewById(R.id.textView);
+        TextView sizeView = view.findViewById(R.id.textSizeView); //TODO
         ImageView imageView = view.findViewById(R.id.imageView);
         textView.setText(directoryEntries.get(position).getName());
+        sizeView.setText(String.valueOf(directoryEntries.get(position).getSize())); //TODO
         imageView.setImageResource(directoryEntries.get(position).getIcon());
         return view;
 
