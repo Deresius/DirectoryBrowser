@@ -42,7 +42,7 @@ public class DirectoryArrayAdapter extends ArrayAdapter<DirectoryEntry>{
         TextView sizeView = view.findViewById(R.id.textSizeView); //TODO
         ImageView imageView = view.findViewById(R.id.imageView);
         textView.setText(directoryEntries.get(position).getName());
-        sizeView.setText(String.valueOf(directoryEntries.get(position).getSize())); //TODO
+        sizeView.setText(directoryEntries.get(position).getSize()); //TODO
         imageView.setImageResource(directoryEntries.get(position).getIcon());
         return view;
 

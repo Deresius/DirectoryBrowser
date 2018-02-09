@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="500dp"
+        android:layout_width="490dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="10dp"
@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/textSizeView"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:padding="10dp"

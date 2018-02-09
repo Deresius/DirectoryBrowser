@@ -1,6 +1,5 @@
 package com.example.david.directorybrowser;
 
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 
 import java.io.File;
@@ -50,16 +49,20 @@ public class DirectoryEntry implements Comparable<DirectoryEntry>{
         return isDirectory;
     }
 
-    public int getSize() {
+    public String getSize() {
+        String returnValue = "";
         if (isDirectory == true) {
-            int size = 0;
             File aFile = new File(this.getPath());
-            for (File curr: aFile.listFiles()) {
-                size++;
+            try {
+                if (aFile.listFiles().length > 0) {
+                    return String.valueOf(aFile.listFiles().length);
+                }
+            } catch (Exception e) {
+
             }
-            return size;
+            return "empty";
         }
-        return 0;
+        return returnValue;
     }
 
     public int compareTo(@NonNull DirectoryEntry o) {
