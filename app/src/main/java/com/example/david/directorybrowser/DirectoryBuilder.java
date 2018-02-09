@@ -10,7 +10,7 @@ import java.util.Collections;
 /**
  *  Directory Builder class is responsible for the method to build a directory from a list of files.
  *
- * Created by David Spurlock and James Looney.
+ * Created by David Spurlock and James Looney and Jacob Slattery.
  */
 
 class DirectoryBuilder {
@@ -38,11 +38,11 @@ class DirectoryBuilder {
                 newEntry.setIcon(R.drawable.txt);
 
             }else if (newEntry.getPath().toLowerCase().endsWith("jpg")){
-                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
-                newEntry.setIcon(newEntry.getThumb().getGenerationId());
+                //newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
+                //newEntry.setIcon(newEntry.getThumb().getGenerationId());
             }else if (newEntry.getPath().toLowerCase().endsWith("jpeg")){
-                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
-                newEntry.setIcon(newEntry.getThumb().getGenerationId());
+                //newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
+                //newEntry.setIcon(newEntry.getThumb().getGenerationId());
             } else if (newEntry.isDirectory()) {
                 newEntry.setIcon(R.drawable.folder_icon);
             } else {
