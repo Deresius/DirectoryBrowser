@@ -37,12 +37,12 @@ class DirectoryBuilder {
             } else if (newEntry.getPath().toLowerCase().endsWith("txt")) {
                 newEntry.setIcon(R.drawable.txt);
 
-            }else if (newEntry.getPath().toLowerCase().endsWith("jpg")){
-                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
-                newEntry.setIcon(newEntry.getThumb().getGenerationId());
-            }else if (newEntry.getPath().toLowerCase().endsWith("jpeg")){
-                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
-                newEntry.setIcon(newEntry.getThumb().getGenerationId());
+//            }else if (newEntry.getPath().toLowerCase().endsWith("jpg")){
+//                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
+//                newEntry.setIcon(newEntry.getThumb().getGenerationId());
+//            }else if (newEntry.getPath().toLowerCase().endsWith("jpeg")){
+//                newEntry.setThumb(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curr.getPath()), 50, 50));
+//                newEntry.setIcon(newEntry.getThumb().getGenerationId());
             } else if (newEntry.isDirectory()) {
                 newEntry.setIcon(R.drawable.folder_icon);
             } else {
